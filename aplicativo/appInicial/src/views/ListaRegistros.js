@@ -46,7 +46,7 @@ export default class ListaRegistros extends React.Component {
 
     efetivaDeletUsuario(idUsuario) {
         deletaUsuario(idUsuario)
-        this.listaRegistros()
+        this.listaRegistros('')
     }
 
     limpaCampoPesquisa() {
