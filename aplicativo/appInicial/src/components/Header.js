@@ -3,34 +3,63 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import IconeIO from 'react-native-vector-icons/Ionicons'
 import IconeFW from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
-export default props => (
-    <View style={estilo.estiloViewPrincipal}>
-        <View style={estilo.estiloAlinhamentoItens}>
+import ModalAddUsuario from './ModalAddUsuario';
 
-            {
-                props.voltarPara ?
+export default class Header extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            mostraModal : false
+        }
+    }
+
+    render() {
+        return (
+            <View style={estilo.estiloViewPrincipal}>
+            <ModalAddUsuario
+                mostraModal = {this.state.mostraModal}
+                fechar = {()=> this.setState({mostraModal : false})}
+            />
+                <View style={estilo.estiloAlinhamentoItens}>
+
+                    {
+                        this.props.voltarPara ?
+                            <View>
+                                <TouchableOpacity style={{ padding: 15 }} onPress={() => Actions.replace(this.props.voltarPara)}>
+                                    <IconeIO name='md-arrow-back' size={30} color='#fff' />
+                                </TouchableOpacity>
+                            </View>
+                            : null
+
+                    }
+
                     <View>
-                        <TouchableOpacity style={{ padding: 15 }} onPress={() => Actions.replace(props.voltarPara)}>
-                            <IconeIO name='md-arrow-back' size={30} color='#fff' />
-                        </TouchableOpacity>
+                        <Text style={estilo.estiloTextoHeader}>{this.props.titulo}</Text>
                     </View>
-                    : null
 
-            }
+                    {
+                        this.props.mostraIconeAdd
+                            ?
+                            <View style={estilo.alinhaIcones}>
+                                <TouchableOpacity onPress = {()=> this.setState({mostraModal : true})}>
+                                    <View style={estilo.primeiroIcone}>
+                                        <IconeIO name='md-add-circle' size={30} color='#FFF' />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            null
 
-            <View>
-                <Text style={estilo.estiloTextoHeader}>{props.titulo}</Text>
-            </View>
-            <View style={estilo.alinhaIcones}>
-                <View style={estilo.primeiroIcone}>
-                    <IconeIO name='md-add-circle' size={30} color='#FFF' />
+                    }
+
                 </View>
-
-                <IconeFW name='retweet' size={30} color='#FFF' />
             </View>
-        </View>
-    </View>
-)
+        )
+    }
+}
+
+
 
 const estilo = StyleSheet.create({
     estiloViewPrincipal: {

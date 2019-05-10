@@ -19,6 +19,7 @@ export default class TelaIncial extends React.Component{
                 <Header
                     titulo = "Tela Inicial"
                     voltarPara = {false}
+                    mostraIconeAdd = {false}
                 />
                 <View>
                 <TouchableOpacity onPress ={()=> Actions.replace('listaRegistros')}>
