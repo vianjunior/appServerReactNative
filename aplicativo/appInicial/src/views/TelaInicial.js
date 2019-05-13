@@ -4,12 +4,13 @@ import Header from '../components/Header'
 import {Card} from 'react-native-elements'
 import {Actions} from 'react-native-router-flux'
 import {buscaUsusarios} from '../functions/buscaUsuarios'
-import {criaTabelaUsuario} from '../DAO/criaTabelasBanco'
+import {criaTabelaUsuario, criaTabelaUsuarioAPP} from '../DAO/criaTabelasBanco'
 
 export default class TelaIncial extends React.Component{
 
     componentDidMount(){
         criaTabelaUsuario()
+        criaTabelaUsuarioAPP()
         
     }
 
@@ -35,6 +36,14 @@ export default class TelaIncial extends React.Component{
                         <View>
                             <Text>Sincronizar Registros</Text>
                         </View>
+                    </Card>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress ={()=> Actions.replace('listaUsuariosApp')}>
+                    <Card containerStyle={estilos.conteinerCard}>
+                        <View>
+                            <Text>Lista Usuarios APP</Text>
+                        </View>  
                     </Card>
                 </TouchableOpacity>
 

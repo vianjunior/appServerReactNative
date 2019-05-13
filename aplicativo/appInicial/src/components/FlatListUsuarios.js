@@ -27,7 +27,7 @@ export default props => {
                 <Text>{item.nmUsuario}</Text>
             </View>
             <View style={estilos.alinhamentoIconesCard}>
-                <TouchableOpacity style = {estilos.toucheableIconesCard}>
+                <TouchableOpacity style = {estilos.toucheableIconesCard} onPress={()=> props.editarUsuario(item)}>
                     <IconFW name='pencil' size={30} color={'#dcdde1'} />
                 </TouchableOpacity>
                 <TouchableOpacity 

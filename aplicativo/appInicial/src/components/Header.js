@@ -4,6 +4,7 @@ import IconeIO from 'react-native-vector-icons/Ionicons'
 import IconeFW from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 import ModalAddUsuario from './ModalAddUsuario';
+import {enviaUsuariosERP} from '../functions/enviaUsuariosERP' 
 
 export default class Header extends React.Component {
 
@@ -20,6 +21,7 @@ export default class Header extends React.Component {
             <ModalAddUsuario
                 mostraModal = {this.state.mostraModal}
                 fechar = {()=> this.setState({mostraModal : false})}
+                atualizaListaUsuariosApp ={this.props.atualizaListaUsuariosApp}
             />
                 <View style={estilo.estiloAlinhamentoItens}>
 
@@ -51,6 +53,20 @@ export default class Header extends React.Component {
                             :
                             null
 
+                    }
+
+                    {
+                        this.props.mostraIconeSinc
+                            ?
+                            <View style={estilo.alinhaIcones}>
+                            <TouchableOpacity onPress = {()=> enviaUsuariosERP()}>
+                                <View style={estilo.primeiroIcone}>
+                                    <IconeIO name='ios-sync' size={30} color='#FFF' />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        null
                     }
 
                 </View>

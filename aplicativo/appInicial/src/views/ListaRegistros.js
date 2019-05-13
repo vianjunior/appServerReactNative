@@ -15,7 +15,8 @@ export default class ListaRegistros extends React.Component {
         super()
         this.state = {
             dadosUsuarios: [],
-            textoPesquisaUsuario: ''
+            textoPesquisaUsuario: '',
+            dadosEditar:false
         }
     }
 
@@ -60,7 +61,7 @@ export default class ListaRegistros extends React.Component {
                 <Header
                     titulo='Lista'
                     voltarPara='telaInicial'
-                    mostraIconeAdd={true}
+                    mostraIconeAdd={false}
                 />
                 <View style={{ flex: 1 }}>
                     <View style={estilo.viewInput}>
@@ -87,6 +88,7 @@ export default class ListaRegistros extends React.Component {
                                 <FlatListUsuarios
                                     dados={this.state.dadosUsuarios}
                                     deletaUsuario={(idUsuario, nomeUsuario) => this.confirmaDeletaUsuario(idUsuario, nomeUsuario)}
+                                    editarUsuario ={(resultado)=>this.setState({dadosEditar:resultado})}
                                 />
                             </View>
 
