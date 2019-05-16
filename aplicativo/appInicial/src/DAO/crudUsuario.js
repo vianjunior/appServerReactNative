@@ -26,6 +26,26 @@ export function insereUsuario(data) {
     })
 }
 
+export function atualizaUsuario(dado){
+    console.log("dado ", dado)
+    db.transaction(tx => {
+        tx.executeSql(`
+            UPDATE
+                usuarios
+            SET
+                nmUsuario = ?,
+                deLogin = ?,
+                cdSenha = ?,
+                cnpjUsuario = ?
+            WHERE
+                cdUsuario = ?            
+        `, [dado.nmUsuario, dado.deLogin, dado.cdSenha, dado.cnpjUsuario, dado.cdUsuario], (err, data)=>{
+
+        })
+        console.log(tx)
+    })
+}
+
 export function buscaUsuario(nomeUsuario) {
     
     return new Promise(result => {
@@ -39,6 +59,7 @@ export function buscaUsuario(nomeUsuario) {
                     nmUsuario LIKE ? 
             `, ['%'+nomeUsuario+'%'], (err, data) => {
                 if (data.rows.length > 0){
+                    console.log(data.rows._array)
                     result(data.rows._array)
                 } else {
                     result(false)

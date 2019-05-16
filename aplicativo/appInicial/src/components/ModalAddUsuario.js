@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet, TouchableWithoutFeedba
 import { Button } from 'native-base';
 import { Input, Card } from 'react-native-elements'
 import { insereUsuarioApp } from '../DAO/crudUsuarioApp'
+import { atualizaUsuario } from '../DAO/crudUsuario'
 
 export default class ModalAddUsuario extends React.Component {
 
@@ -13,7 +14,25 @@ export default class ModalAddUsuario extends React.Component {
             deLogin: '',
             cdSenha: '',
             confirmaSenha: '',
-            cnpjUsuario: ''
+            cnpjUsuario: '',
+            tipoModal:'',
+            cdUsuario:''
+        }
+        console.log("CONSTRUCTOR ", props)
+    }
+
+    componentWillReceiveProps(props){
+        console.log("PROPS WILL ", props)
+        if(props.tipoModal === 'editar'){
+            this.setState({
+                nmUsuario:props.dadosUsuario.nmUsuario,
+                deLogin:props.dadosUsuario.deLogin,
+                cdSenha:props.dadosUsuario.cdSenha,
+                confirmaSenha:props.dadosUsuario.cdSenha,
+                cnpjUsuario:props.dadosUsuario.cnpjUsuario,
+                cdUsuario:props.dadosUsuario.cdUsuario,
+                tipoModal:props.tipoModal
+            })
         }
     }
 
@@ -56,6 +75,23 @@ export default class ModalAddUsuario extends React.Component {
             cnpjUsuario: ''
         })
     }
+
+    acaoBtnSaveUpdate(dados){
+        if(this.state.tipoModal == 'editar'){
+            atualizaUsuario(dados)
+            Alert.alert('Aviso', 'Dados atualizados com sucesso!', 
+            [
+                {
+                    text: 'OK',
+                    onPress: ()=> {this.props.atualizaLista(), this.props.fechar()}
+                }
+            ]
+            )
+        }else{
+            this.insererirUsuario(this.state)
+        }
+    }
+
 
     render() {
         return (
@@ -124,13 +160,14 @@ export default class ModalAddUsuario extends React.Component {
                         </View>
 
                         <View style={estilos.alinhaBtns}>
+
                             <Button
                                 style={estilos.btnSalvar}
                                 rounded onPress={this.props.fechar}
                                 ref={ref => this.salvarDados = ref}
-                                onPress={() => this.insererirUsuario(this.state)}
+                                onPress={() => this.acaoBtnSaveUpdate(this.state)}
                             >
-                                <Text>Salvar</Text>
+                                <Text>{this.state.tipoModal == 'editar' ? 'Atualizar': 'Salvar'}</Text>
                             </Button>
                             <Button style={estilos.btnFechar} rounded onPress={this.props.fechar}>
                                 <Text>Fechar</Text>

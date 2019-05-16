@@ -4,6 +4,7 @@ import { Input } from 'react-native-elements'
 import IconIO from 'react-native-vector-icons/Ionicons'
 
 import Header from '../components/Header'
+import ModalAddUsuario from '../components/ModalAddUsuario'
 
 import { buscaUsuario, deletaUsuario } from '../DAO/crudUsuario'
 import FlatListUsuarios from '../components/FlatListUsuarios';
@@ -16,7 +17,9 @@ export default class ListaRegistros extends React.Component {
         this.state = {
             dadosUsuarios: [],
             textoPesquisaUsuario: '',
-            dadosEditar:false
+            dadosEditar:false,
+            abrirModal:false,
+            tipoModal:null
         }
     }
 
@@ -55,6 +58,10 @@ export default class ListaRegistros extends React.Component {
         this.listaRegistros('')
     }
 
+    editarUsuario(dados){
+        this.setState({dadosEditar:dados,tipoModal:'editar', abrirModal:true, })
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -84,11 +91,18 @@ export default class ListaRegistros extends React.Component {
                         this.state.dadosUsuarios
                             ?
                             <View style={{ flex: 1 }}>
-
+                            <ModalAddUsuario
+                                fechar = {()=> this.setState({abrirModal: false})}
+                                mostraModal = {this.state.abrirModal}
+                                tipoModal = {this.state.tipoModal}
+                                dadosUsuario ={this.state.dadosEditar}
+                                atualizaLista = {()=> this.listaRegistros('')}
+                            />
                                 <FlatListUsuarios
                                     dados={this.state.dadosUsuarios}
                                     deletaUsuario={(idUsuario, nomeUsuario) => this.confirmaDeletaUsuario(idUsuario, nomeUsuario)}
-                                    editarUsuario ={(resultado)=>this.setState({dadosEditar:resultado})}
+                                    editarUsuario ={(resultado)=>this.editarUsuario(resultado)}
+
                                 />
                             </View>
 

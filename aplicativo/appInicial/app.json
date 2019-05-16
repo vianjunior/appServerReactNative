@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "appInicial",
-    "slug": "appInicial",
+    "slug": "appinicial",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -10,7 +10,6 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,10 +24,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "devjuniorios.com.br",
+      "buildNumber": "1",
+      "icon": "./assets/icon.png"
     },
     "android": {
-      "package" : "junior.com"
+      "package" : "devjunior.com.br",
+      "icon": "./assets/icon.png",
+      "versionCode": 1
+    },
+    "packagerOpts": {
+      "nonPersistent": true
     }
   }
 }

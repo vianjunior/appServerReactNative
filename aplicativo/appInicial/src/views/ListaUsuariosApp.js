@@ -18,9 +18,17 @@ export default class ListaUsuariosApp extends React.Component{
 
     }
 
+    componentWillReceiveProps(props){
+        console.log("OUTRAS ", props)
+    }
+
     async buscaRegistros(filtro){
         let resultado = await listaUsuariosApp(filtro)
         this.setState({registros : resultado})
+    }
+
+    buscar(){
+        this.buscaRegistros('')
     }
 
     render(){
@@ -31,7 +39,7 @@ export default class ListaUsuariosApp extends React.Component{
                     voltarPara = {'telaInicial'}
                     mostraIconeAdd = {true}
                     mostraIconeSinc = {true}
-                    atualizaListaUsuariosApp ={()=> this.buscaRegistros('')}
+                    atualizaListaUsuariosApp ={()=> this.buscar()}
                 />
 
                 <View style = {{flex : 1}}>

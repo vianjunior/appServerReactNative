@@ -15,13 +15,14 @@ export default class Header extends React.Component {
         }
     }
 
+
     render() {
         return (
             <View style={estilo.estiloViewPrincipal}>
             <ModalAddUsuario
                 mostraModal = {this.state.mostraModal}
                 fechar = {()=> this.setState({mostraModal : false})}
-                atualizaListaUsuariosApp ={this.props.atualizaListaUsuariosApp}
+                atualizaListaUsuariosApp ={()=> this.props.atualizaListaUsuariosApp()}
             />
                 <View style={estilo.estiloAlinhamentoItens}>
 
