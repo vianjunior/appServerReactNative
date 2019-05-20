@@ -1,8 +1,10 @@
 import React from 'react'
 import Header from '../components/Header'
 import {View} from 'react-native'
+
 import {listaUsuariosApp} from '../DAO/crudUsuarioApp'
 import FlatListUsuariosApp from '../components/FlatListUsuariosApp'
+import {config} from '../DAO/crudAdmAndroid'
 
 export default class ListaUsuariosApp extends React.Component{
 
@@ -15,6 +17,7 @@ export default class ListaUsuariosApp extends React.Component{
 
     componentDidMount(){
         this.buscaRegistros('')
+        console.log('Conteúdo Config', config)
 
     }
 

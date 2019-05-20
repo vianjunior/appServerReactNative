@@ -1,17 +1,23 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-import Header from '../components/Header'
 import {Card} from 'react-native-elements'
 import {Actions} from 'react-native-router-flux'
+
+import Header from '../components/Header'
+
 import {buscaUsusarios} from '../functions/buscaUsuarios'
-import {criaTabelaUsuario, criaTabelaUsuarioAPP} from '../DAO/criaTabelasBanco'
+import {criaTabelaUsuario, criaTabelaUsuarioAPP, criaTabelaAdmAndroid} from '../DAO/criaTabelasBanco'
+import {sincronizaAdmAndroid} from '../functions/sincronizaAdmAndroid'
+
+import {buscaRegistrosAdmAndroid } from '../DAO/crudAdmAndroid'
 
 export default class TelaIncial extends React.Component{
 
     componentDidMount(){
         criaTabelaUsuario()
         criaTabelaUsuarioAPP()
-        
+        criaTabelaAdmAndroid()
+        buscaRegistrosAdmAndroid()
     }
 
     render(){
@@ -43,6 +49,14 @@ export default class TelaIncial extends React.Component{
                     <Card containerStyle={estilos.conteinerCard}>
                         <View>
                             <Text>Lista Usuarios APP</Text>
+                        </View>  
+                    </Card>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress ={()=> sincronizaAdmAndroid()}>
+                    <Card containerStyle={estilos.conteinerCard}>
+                        <View>
+                            <Text>Sincronizar Config Mobile</Text>
                         </View>  
                     </Card>
                 </TouchableOpacity>

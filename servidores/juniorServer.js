@@ -23,7 +23,6 @@ const pool = Firebird.pool(1000000, options)
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }))
 app.use(bodyParser.json({ limit: "50mb" }))
 
-
 // rotas get
 // app.get("/respostaGetString", (request, response) => {
 //     response.send("Teste String")
@@ -59,6 +58,30 @@ app.get("/buscaUsuariosAPP", (request, response) => {
                 } else {
                     response.send(result)
                 }
+                db.detach()
+            })
+    })
+})
+
+app.get("/buscaParamAdmAndroid", (request, response)=>{
+    Firebird.attach(options, (err, db) =>{
+        if(err)
+            throw console.log("Erro ao conectar com o banco de dados", err)
+        
+            db.query(`
+                SELECT
+                    *
+                FROM
+                    ADMANDROID
+            `, [] , (err, result) =>{
+                if(err) {
+                    console.log("Erro ao efetuar SELECT /buscaParamAdmAndroid", err)
+                    response.send(`Erro ao buscar parâmetros (SQL) nas Configurações Mobile em /buscaParamAdmAndroid`)                    
+                    return
+                } else {
+                    response.send(result)
+                }
+                db.detach()
             })
     })
 })

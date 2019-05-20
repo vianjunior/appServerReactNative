@@ -1,10 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import IconeIO from 'react-native-vector-icons/Ionicons'
-import IconeFW from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
+
+import IconeIO from 'react-native-vector-icons/Ionicons'
+
 import ModalAddUsuario from './ModalAddUsuario';
 import {enviaUsuariosERP} from '../functions/enviaUsuariosERP' 
+
+import {config} from '../DAO/crudAdmAndroid'
 
 export default class Header extends React.Component {
 
@@ -19,6 +22,9 @@ export default class Header extends React.Component {
     render() {
         return (
             <View style={estilo.estiloViewPrincipal}>
+            {
+                console.log(config)
+            }
             <ModalAddUsuario
                 mostraModal = {this.state.mostraModal}
                 fechar = {()=> this.setState({mostraModal : false})}
@@ -42,7 +48,7 @@ export default class Header extends React.Component {
                     </View>
 
                     {
-                        this.props.mostraIconeAdd
+                        config.TPCADCLIENTE == 1 || config.TPCADCLIENTE == 2
                             ?
                             <View style={estilo.alinhaIcones}>
                                 <TouchableOpacity onPress = {()=> this.setState({mostraModal : true})}>
